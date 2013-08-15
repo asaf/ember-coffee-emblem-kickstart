@@ -1,2 +1,2 @@
-define ['routes', 'templates_emblem'], (App)->
+define ['app', 'routes', 'controllers'], (App)->
     App

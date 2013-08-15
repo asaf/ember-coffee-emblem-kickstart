@@ -16,6 +16,8 @@ require.config
             exports: 'Ember'
         templates_hbs: ['ember']
         templates_emblem: ['ember']
+        app:
+            deps: ['templates_emblem']
 
 require ['init'], (App)->
     'use strict';
