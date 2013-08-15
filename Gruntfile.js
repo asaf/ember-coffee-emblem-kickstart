@@ -33,6 +33,14 @@ module.exports = function (grunt) {
                 files: ['test/spec/{,*/}*.coffee'],
                 tasks: ['coffee:test']
             },
+            templates: {
+                files: '<%= yeoman.app %>/templates/**/*.hbs',
+                tasks: ['templates']
+            },
+            emblem: {
+                files: '<%= yeoman.app %>/templates/**/*.elm',
+                tasks: ['emblem']
+            },
             compass: {
                 files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
                 tasks: ['compass:server']
@@ -317,8 +325,38 @@ module.exports = function (grunt) {
             all: {
                 rjsConfig: '<%= yeoman.app %>/scripts/main.js'
             }
+        },
+        templates: {
+            compile: {
+                options: {
+                    templateName: function (sourceFile) {
+                        return sourceFile.replace(/app\/templates\//, '');
+                    }
+                },
+                files: {
+                    '.tmp/scripts/templates/templates_hbs.js': ['<%= yeoman.app %>/templates/**/*.hbs']
+                }
+            }
+        },
+        emblem: {
+            compile: {
+                files: {
+                    '.tmp/scripts/templates/templates_emblem.js' : '<%= yeoman.app %>/templates/**/*.elm'
+                },
+                options: {
+                    root: '<%= yeoman.app %>/templates/',
+                    dependencies: {
+                        jquery: '<%= yeoman.app %>/bower_components/jquery/jquery.js',
+                        ember: '<%= yeoman.app %>/bower_components/ember/ember.js',
+                        emblem: '<%= yeoman.app %>/bower_components/emblem/dist/emblem.js',
+                        handlebars: '<%= yeoman.app %>/bower_components/handlebars/handlebars.js'
+                    }
+                }
+            }
         }
     });
+
+    grunt.renameTask('emberTemplates', 'templates');
 
     grunt.registerTask('server', function (target) {
         if (target === 'dist') {
