@@ -120,6 +120,8 @@ module.exports = function (grunt) {
                 'Gruntfile.js',
                 '<%= yeoman.app %>/scripts/{,*/}*.js',
                 '!<%= yeoman.app %>/scripts/vendor/*',
+                '!<%= yeoman.app %>/scripts/templates_hbs.js',
+                '!<%= yeoman.app %>/scripts/templates_emblem.js',
                 'test/spec/{,*/}*.js'
             ]
         },
@@ -305,7 +307,9 @@ module.exports = function (grunt) {
         concurrent: {
             server: [
                 'compass',
-                'coffee:dist'
+                'coffee:dist',
+                'templates',
+                'emblem',
             ],
             test: [
                 'coffee'
